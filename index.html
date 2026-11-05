@@ -7,9 +7,11 @@
 <body>
 <iframe id="f" title="Campus" allow="clipboard-read; clipboard-write; fullscreen"></iframe>
 <script>
-const GAS='https://script.google.com/a/macros/s.kansai.soka.ed.jp/s/AKfycbycd6VCPr59P4jwLQVXpb7FElKDnJR80G6M9c1ofYtlmZeiLsfke5vazIC2RHKKwzaqIQ/exec';
+// ★ GASウェブアプリの /exec URL
+const GAS='https://script.google.com/a/s.kansai.soka.ed.jp/macros/s/AKfycbycd6VCPr59P4jwLQVXpb7FElKDnJR80G6M9c1ofYtlmZeiLsfke5vazIC2RHKKwzaqIQ/exec';
 // このページのクエリ(?path=...&token=...)をそのままGASへ渡す
-document.getElementById('f').src=GAS+location.search;
+// GAS側へ「Pagesから開いた」ことを知らせる目印を先頭に付ける（GAS側が読み取ると自動で消える）
+document.getElementById('f').src=GAS+'?_originIsPUBLIC_BASE_URL=true'+(location.search?'&'+location.search.slice(1):'');
 // GAS内SPAからの画面遷移通知を受け取り、このページのURLを書き換える（/はエスケープしない）
 addEventListener('message',e=>{
   const d=e.data;
