@@ -1,1 +1,19 @@
-<p>開発中</p>
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Campus</title>
+<style>html,body{margin:0;height:100%;background:#000}iframe{display:block;border:0;width:100%;height:100%}</style></head>
+<body>
+<iframe id="f" title="Campus" allow="clipboard-read; clipboard-write; fullscreen"></iframe>
+<script>
+const GAS='https://script.google.com/a/macros/s.kansai.soka.ed.jp/s/AKfycbycd6VCPr59P4jwLQVXpb7FElKDnJR80G6M9c1ofYtlmZeiLsfke5vazIC2RHKKwzaqIQ/exec';
+// このページのクエリ(?path=...&token=...)をそのままGASへ渡す
+document.getElementById('f').src=GAS+location.search;
+// GAS内SPAからの画面遷移通知を受け取り、このページのURLを書き換える（/はエスケープしない）
+addEventListener('message',e=>{
+  const d=e.data;
+  if(!d||d.type!=='campus:path'||typeof d.path!=='string'||d.path.charAt(0)!=='/')return;
+  if(!/^https:\/\/([\w-]+\.)*(googleusercontent|google)\.com$/.test(e.origin))return;
+  history.replaceState(null,'','?path='+d.path);
+});
+</script></body></html>
