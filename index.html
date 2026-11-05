@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<link rel="icon" type="image/png" href="https://ks-seed0310.github.io/image/image/png/campus_official_image.png">
 <title>Campus</title>
+<link rel="icon" type="image/png" href="https://ks-seed0310.github.io/image/image/png/campus_official_image.png">
 <style>html,body{margin:0;height:100%;background:#000}iframe{display:block;border:0;width:100%;height:100%}</style></head>
 <body>
 <iframe id="f" title="Campus" allow="clipboard-read; clipboard-write; fullscreen"></iframe>
 <script>
-// ★ GASウェブアプリの /exec URL
+// GASウェブアプリの /exec URL
 const GAS='https://script.google.com/a/s.kansai.soka.ed.jp/macros/s/AKfycbycd6VCPr59P4jwLQVXpb7FElKDnJR80G6M9c1ofYtlmZeiLsfke5vazIC2RHKKwzaqIQ/exec';
-// このページのクエリ(?path=...&token=...)をそのままGASへ渡す
-// GAS側へ「Pagesから開いた」ことを知らせる目印を先頭に付ける（GAS側が読み取ると自動で消える）
+// 「Pagesから開いた」目印を付けてGASへ渡す（GAS側が読み取るとURLから消える）
 document.getElementById('f').src=GAS+'?_originIsPUBLIC_BASE_URL=true'+(location.search?'&'+location.search.slice(1):'');
-// GAS内SPAからの画面遷移通知を受け取り、このページのURLを書き換える（/はエスケープしない）
+const OK=/^https:\/\/([\w-]+\.)*(googleusercontent|google)\.com$/;
 addEventListener('message',e=>{
-  const d=e.data;
-  if(!d||d.type!=='campus:path'||typeof d.path!=='string'||d.path.charAt(0)!=='/')return;
-  if(!/^https:\/\/([\w-]+\.)*(googleusercontent|google)\.com$/.test(e.origin))return;
-  history.replaceState(null,'','?path='+d.path);
+  const d=e.data;if(!d||!OK.test(e.origin))return;
+  // GAS側からの問い合わせに「Pagesで開いている」と返答する（URLの目印が届かなくても判定できるように）
+  if(d.type==='campus:hello'){try{e.source.postMessage({type:'campus:origin'},e.origin)}catch(x){}return}
+  // GAS内SPAの画面遷移通知: このページのURLを書き換える（/はエスケープしない）
+  if(d.type==='campus:path'&&typeof d.path==='string'&&d.path.charAt(0)==='/')history.replaceState(null,'','?path='+d.path);
 });
 </script></body></html>
