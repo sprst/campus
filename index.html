@@ -20,4 +20,53 @@ addEventListener('message',e=>{
   if(d.type==='campus:path'&&typeof d.path==='string'&&d.path.charAt(0)==='/')history.replaceState(null,'','?path='+d.path);
 });
 </script></body></html>-->
-<p>Redirecting...</p><script>const path=new URLSearchParams(location.search).get("path");location.replace("https://campus73.github.io/"+path)</script>
+<!doctype html>
+<html lang=ja>
+    <head>
+        <meta charset=utf-8>
+        <style>
+            body{
+                margin:0
+            }
+            .btnsmall{
+                border: 2px solid #8f9195;
+                border-radius:24px;
+                font-size:16px;
+                padding:4px 8px;
+                cursor:pointer;
+                margin-top:8px;
+                margin-bottom:4px;
+                font-family:sans-serif;
+                background-color:#fafafa;
+                color:#080808;
+            }
+            #topelm{
+                display:inline-block;
+                text-align:center;
+                width:100vw;
+            }
+            #official_image{
+                width:80%;
+                height:auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="topelm">
+            <img src="https://ks-seed0310.github.io/image/image/png/campus_official_image.png" id="official_image">
+            <p>【お知らせ】</p>
+            <p>Campus v1.12.3アップデートに伴い、Campus公式サイトは移動しました。</p>
+            <p>新Webサイトでは今までよりももっと分かりやすいURL構造への変更などを行っています。</p>
+            <p>新WebサイトでもCampusの中身などは一切変わっておりませんので安心してご利用ください。</p>
+            <p>これからもCampusをよろしくお願いします。</p>
+            <a id="move" class="btnsmall">新Webサイトに移動する</a>
+        </div>
+        <script>
+            const up=new URLSearchParams(location.search)
+            const path=up.get("path")||""
+            up.delete("path")
+            const m=document.getElementById("move")
+            m.href=new URL(path+"?"+up.toString(),"https://campus73.github.io/")
+        </script>
+    </body>
+</html>
