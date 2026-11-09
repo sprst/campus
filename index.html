@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Campus</title>
@@ -19,4 +19,5 @@ addEventListener('message',e=>{
   // GAS内SPAの画面遷移通知: このページのURLを書き換える（/はエスケープしない）
   if(d.type==='campus:path'&&typeof d.path==='string'&&d.path.charAt(0)==='/')history.replaceState(null,'','?path='+d.path);
 });
-</script></body></html>
+</script></body></html>-->
+<p>Redirecting...</p><script>const path=new URLSearchParams(location.search).get("path");location.replace("https://campus73.github.io/"+path)</script>
